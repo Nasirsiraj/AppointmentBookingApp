@@ -1,0 +1,36 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<mat-toolbar *ngIf="successMessage" color="accent">{{successMessage}}</mat-toolbar>
+<mat-toolbar *ngIf="errorMessage" color="warn">{{errorMessage}}</mat-toolbar>
+
+<div *ngIf="!loading">
+  <table mat-table [dataSource]="appointments" class="mat-elevation-z8">
+    <!-- appointment date column -->
+    <ng-container matColumnDef="appointmentDate">
+      <mat-header-cell *matHeaderCellDef>Appointment Date</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{appointment.appointmentDate | date: "dd/MM/yyyy"}}</mat-cell>
+    </ng-container>
+    <!-- appointment name column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{appointment.name}}</mat-cell>
+    </ng-container>
+    <!-- appointment email column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{appointment.email}}</mat-cell>
+    </ng-container>
+    <!-- appointment cancel column -->
+    <ng-container matColumnDef="cancel">
+      <mat-header-cell *matHeaderCellDef>Cancel</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">
+        <button (click)="deleteAppointment(appointment.id)" mat-raised-button color="warn">Cancel</button>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let appointments; columns: columns"></mat-row>
+  </table>
+  <br><br><br><br>
+  <br><br><br><br>
+</div>
